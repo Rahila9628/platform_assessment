@@ -2,7 +2,7 @@ import Config from 'react-native-config';
 import { MMKV } from 'react-native-mmkv';
 
 export const storage = new MMKV({
-  id: Config.STORAGE_ID ?? 'react-native-boilerplate-ts',
+  id: Config.STORAGE_ID || 'react-native-boilerplate-ts',
   encryptionKey: Config.STORAGE_KEY ?? '',
 });
 
