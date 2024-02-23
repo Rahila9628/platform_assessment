@@ -9,10 +9,11 @@ export const isiPad = aspectRatio < 1.6;
 
 // Custom Fonts
 export const fonts = {
-  Regular: { fontFamily: 'Regular' },
-  Light: { fontFamily: 'Light' },
-  Medium: { fontFamily: 'Medium' },
-  Bold: { fontFamily: 'Bold' },
+  Regular: { fontFamily: 'Lexend-Regular' },
+  Light: { fontFamily: 'Lexend-Light' },
+  Medium: { fontFamily: 'Lexend-Medium' },
+  SemiBold: { fontFamily: 'Lexend-SemiBold' },
+  Bold: { fontFamily: 'Lexend-Bold' },
 };
 
 // Font Sizes

@@ -4,7 +4,7 @@ const DarkTheme = {
   type: 'dark',
   keyboardAppearance: 'dark',
   themeColor: ThemeColor.primary,
-  background: ThemeColor.black,
+  background: ThemeColor.sugarcane,
   shadowColor: ThemeColor.gray2,
   card: ThemeColor.gray5,
   text: ThemeColor.white,
@@ -19,6 +19,14 @@ const DarkTheme = {
   textBorder: ThemeColor.lightGray4,
   gray: ThemeColor.gray,
   overlay: ThemeColor.overlay,
+
+  // ******* //
+  white: ThemeColor.white,
+  black: ThemeColor.black,
+  offWhite: ThemeColor.offWhite,
+  davyGray: ThemeColor.davyGray,
+  cloudyGray: ThemeColor.cloudyGray,
+  bokaraGray: ThemeColor.bokaraGray,
 };
 
 export default DarkTheme;

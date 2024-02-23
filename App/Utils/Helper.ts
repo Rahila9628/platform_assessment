@@ -64,6 +64,12 @@ export const getSize = (size: number) => {
   };
 };
 
+export const getWidth = (size: number | string | any) => {
+  return {
+    width: size,
+  };
+};
+
 export const getRound = (size: number) => {
   return {
     height: size,
@@ -71,6 +77,37 @@ export const getRound = (size: number) => {
     borderRadius: size,
   };
 };
+
+export const getPaddingHorizontal = (size: number) => {
+  return {
+    paddingHorizontal: size,
+  };
+};
+
+export const getPaddingVertical = (size: number) => {
+  return {
+    paddingVertical: size,
+  };
+};
+
+export const getBorderRadius = (size: number) => {
+  return {
+    borderRadius: size,
+  };
+};
+
+export const getMarginHorizontal = (size: number) => {
+  return {
+    marginHorizontal: size,
+  };
+};
+
+export const getMarginVertical = (size: number) => {
+  return {
+    marginVertical: size,
+  };
+};
+
 
 export const navigateToNextScreen = (
   navigation: any,

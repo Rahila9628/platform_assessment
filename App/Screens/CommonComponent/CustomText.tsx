@@ -5,7 +5,7 @@ import {
   Text,
   TextStyle,
 } from 'react-native';
-import { fontSizes } from '@Utils/Constant';
+import { fontSizes, fonts } from '@Utils/Constant';
 import { AppContext } from '@AppContext';
 
 interface CustomProps {
@@ -19,9 +19,13 @@ interface CustomProps {
   xxxlarge?: boolean;
   style?: StyleProp<TextStyle>;
   children: JSX.Element | string;
-  numberOfLines?: number;
+  numberOfLines?: number | undefined;
   onPress?: (event: GestureResponderEvent) => void;
   maxLength?: number;
+  color?: string;
+  font?: { fontFamily: string };
+  lineHeight?: number;
+  letterSpacing?: number;
 }
 const CustomText = (props: CustomProps) => {
   const { appTheme } = useContext(AppContext);
@@ -37,10 +41,14 @@ const CustomText = (props: CustomProps) => {
     style,
     children,
     numberOfLines = 0,
+    lineHeight,
+    color = appTheme.text,
+    font = fonts.Regular,
+    letterSpacing,
   } = props;
 
   const getFontSize = () => {
-    let fontSize = size ?? fontSizes.medium;
+    let fontSize = size || fontSizes.medium;
     if (xsmall) {
       fontSize = fontSizes.xsmall;
     } else if (small) {
@@ -70,12 +78,40 @@ const CustomText = (props: CustomProps) => {
   };
 
   return (
-    <Text
-      {...props}
-      numberOfLines={numberOfLines}
-      style={[getFontSize(), { color: appTheme.text }, style]}>
-      {renderChildren()}
-    </Text>
+    (props.onPress && (
+      <Text
+        {...props}
+        numberOfLines={numberOfLines}
+        style={[
+          getFontSize(),
+          font,
+          {
+            color: color,
+            lineHeight: lineHeight,
+            letterSpacing: letterSpacing,
+          },
+          style && style,
+        ]}
+        onPress={e => (props.onPress && props.onPress(e)) || null}>
+        {renderChildren()}
+      </Text>
+    )) || (
+      <Text
+        {...props}
+        numberOfLines={numberOfLines}
+        style={[
+          getFontSize(),
+          font,
+          {
+            color: color,
+            lineHeight: lineHeight,
+            letterSpacing: letterSpacing,
+          },
+          style && style,
+        ]}>
+        {renderChildren()}
+      </Text>
+    )
   );
 };
 

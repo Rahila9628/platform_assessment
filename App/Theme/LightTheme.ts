@@ -4,7 +4,7 @@ const LightTheme = {
   type: 'light',
   keyboardAppearance: 'light',
   themeColor: ThemeColor.primary,
-  background: ThemeColor.white,
+  background: ThemeColor.sugarcane,
   shadowColor: ThemeColor.black,
   card: ThemeColor.lighter,
   text: ThemeColor.gray6,
@@ -19,6 +19,15 @@ const LightTheme = {
   textBorder: ThemeColor.lightGray4,
   gray: ThemeColor.gray,
   overlay: ThemeColor.overlay,
+
+  // ******* //
+  white: ThemeColor.white,
+  black: ThemeColor.black,
+  offWhite: ThemeColor.offWhite,
+  davyGray: ThemeColor.davyGray,
+  cloudyGray: ThemeColor.cloudyGray,
+  bokaraGray: ThemeColor.bokaraGray,
+
 };
 
 export default LightTheme;

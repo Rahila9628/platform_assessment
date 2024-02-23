@@ -15,6 +15,7 @@ const AppImages = {
   qr: 'qr',
   teams: 'teams',
   workTable: 'work_table',
+  next: 'next',
 };
 
 export default AppImages;

@@ -10,6 +10,7 @@ import {
   ViewStyle,
   TextStyle,
   ImageStyle,
+  StatusBarStyle,
   ScrollView,
 } from 'react-native';
 import { isIOS } from '@Utils/Constant';
@@ -44,6 +45,13 @@ interface LayoutProps {
   };
   navBarContainerStyle?: StyleProp<ViewStyle>;
   removeContainerView?: boolean;
+  statusbarBgColor?: string;
+  barStyle?: StatusBarStyle | null | undefined;
+  containerStyles?: StyleProp<ViewStyle>;
+  scrollContainer?: StyleProp<ViewStyle>;
+  goBack?: boolean;
+  logoHeaderStyle?: StyleProp<ViewStyle>;
+  onBack?: Function;
 }
 
 const Layout = (props: LayoutProps) => {
@@ -55,7 +63,7 @@ const Layout = (props: LayoutProps) => {
     titleTextStyle,
     titleNumberOfLines = 1,
     titleMaxLength,
-    padding = 10,
+    padding = 0,
     scrollable = false,
     backgroundColor,
     showBack = false,
@@ -63,41 +71,48 @@ const Layout = (props: LayoutProps) => {
     navBarContainerStyle,
     submit,
     removeContainerView = false,
+    statusbarBgColor = appTheme.background,
+    barStyle = 'dark-content',
+    containerStyles,
+    scrollContainer,
   } = props;
 
   return (
     <SafeAreaView
       style={[
         CommonStyle.flex1,
-        { backgroundColor: backgroundColor ?? appTheme.background },
+        { backgroundColor: backgroundColor || appTheme.background },
+        containerStyles,
       ]}>
-      <StatusBar
-        backgroundColor={appTheme.themeColor}
-        barStyle={
-          (appTheme.type === 'dark' && 'light-content') || 'dark-content'
-        }
-      />
+      <StatusBar backgroundColor={statusbarBgColor} barStyle={barStyle} />
       <KeyboardAvoidingView
         behavior="padding"
         style={styles.keyboardView}
         keyboardVerticalOffset={isIOS ? 0 : -500}>
-        <NavigationBar
-          title={title}
-          titleCenter={titleCenter}
-          titleTextStyle={titleTextStyle}
-          titleNumberOfLines={titleNumberOfLines}
-          titleMaxLength={titleMaxLength}
-          backgroundColor={backgroundColor}
-          showBack={showBack}
-          exStyle={navBarContainerStyle}
-          paddingHorizontal={padding}
-          submit={submit}
-        />
+        {(title && (
+          <NavigationBar
+            title={title}
+            titleCenter={titleCenter}
+            titleTextStyle={titleTextStyle}
+            titleNumberOfLines={titleNumberOfLines}
+            titleMaxLength={titleMaxLength}
+            backgroundColor={backgroundColor}
+            showBack={showBack}
+            exStyle={navBarContainerStyle}
+            paddingHorizontal={padding}
+            submit={submit}
+          />
+        )) || <></>}
+
         {(scrollable && (
           <ScrollView
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="always"
-            contentContainerStyle={[styles.scrollContainer, { padding }]}
+            contentContainerStyle={[
+              styles.scrollContainer,
+              { padding },
+              scrollContainer,
+            ]}
             refreshControl={
               (refreshControl && (
                 <RefreshControl
