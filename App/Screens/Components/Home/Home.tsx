@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { BlurView } from '@react-native-community/blur';
 import {
   CustomHeader,
   CustomText,
   CustomTopicHeader,
   Layout,
+  NetworkImage,
 } from '@CommonComponent';
 import { AppContext } from '@AppContext';
 import {
@@ -22,44 +25,32 @@ import {
   getPaddingVertical,
   getSize,
   getWidth,
+  navigateToNextScreen,
 } from '@Utils/Helper';
 import CommonStyle from '@Theme/CommonStyle';
 import AppImages from '@Theme/AppImages';
-import { width } from '@Utils/Constant';
-import { BlurView } from '@react-native-community/blur';
+import { articles, notifications, width } from '@Utils/Constant';
 import OptionsContainer from '@Components/Home/OptionsContainer';
+import { Route } from '@Routes/AppRoutes';
 
 const Home = () => {
   const { appTheme } = useContext(AppContext);
-  const articles = [
-    {
-      title: 'How to speed up your productivity',
-      image:
-        'https://i.postimg.cc/pXzg175r/360-F-284529974-4g-Qd-Vf3p-Gjh-WEd-S5-Fmla-Rdmfs-Xcwaa3-U.jpg',
-    },
-    {
-      title: 'next holidays announced',
-      image:
-        'https://i.postimg.cc/6p6YL1dD/continental-breakfast-coffee-orange-juice-600nw-184835783.webp',
-    },
-  ];
-
-  const notifications = [
-    {
-      notification: 'You have 3 new messages from R. Carlos',
-    },
-    {
-      notification: 'John sent an image',
-    },
-    {
-      notification: 'Jane shared a video with you',
-    },
-  ];
+  const navigation = useNavigation();
 
   // States
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   // Methods
+  const onPressOption = (item: {
+    id: number;
+    title: string;
+    image: string;
+  }) => {
+    console.log({ item });
+    setIsOptionsOpen(false);
+    navigateToNextScreen(navigation, { name: Route.Booking });
+  };
+
   const renderArticle = ({ item }: { item: any }) => {
     return <ArticleContainer item={item} />;
   };
@@ -71,6 +62,18 @@ const Home = () => {
   const renderNotification = ({ item }: { item: any }) => {
     return <NotificationContainer item={item} />;
   };
+
+  // return (
+  //   <View
+  //     style={[
+  //       CommonStyle.flex1,
+  //       CommonStyle.center,
+  //       { backgroundColor: appTheme.white },
+  //     ]}>
+  //     <NetworkImage source={'https://i.postimg.cc/25LGVS47/reminder-2.png'} />
+  //     <CustomText color="black">Assessment</CustomText>
+  //   </View>
+  // );
 
   return (
     <>
@@ -155,14 +158,7 @@ const Home = () => {
           reducedTransparencyFallbackColor="white">
           <OptionsContainer
             onClose={() => setIsOptionsOpen(false)}
-            onPressItem={(item: {
-              id: number;
-              title: string;
-              image: string;
-            }) => {
-              console.log({ item });
-              setIsOptionsOpen(false);
-            }}
+            onPressItem={onPressOption}
           />
         </BlurView>
       )}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useContext } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { AssetImage, CustomText } from '@CommonComponent';
 import AppImages from '@Theme/AppImages';
 import CommonStyle from '@Theme/CommonStyle';
@@ -10,6 +10,7 @@ import {
   getSize,
 } from '@Utils/Helper';
 import { fonts } from '@Utils/Constant';
+import { AppContext } from '@AppContext';
 
 interface CustomProps {
   item: { notification: string };
@@ -17,10 +18,13 @@ interface CustomProps {
 }
 
 const NotificationContainer = (props: CustomProps) => {
+  const { appTheme } = useContext(AppContext);
   const { item, onPress } = props;
 
   return (
-    <View style={[styles.container]}>
+    <Pressable
+      onPress={() => (onPress && onPress()) || null}
+      style={[styles.container, { backgroundColor: appTheme.white }]}>
       <View
         style={[
           CommonStyle.row,
@@ -39,7 +43,7 @@ const NotificationContainer = (props: CustomProps) => {
           <AssetImage source={AppImages.message} imageStyle={getSize(20)} />
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

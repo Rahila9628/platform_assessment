@@ -40,6 +40,12 @@ module.exports = api => {
           alias,
         },
       ],
+      [
+        'react-native-reanimated/plugin',
+        {
+          globals: ['__sckanCodes'],
+        },
+      ],
     ],
   };
 };

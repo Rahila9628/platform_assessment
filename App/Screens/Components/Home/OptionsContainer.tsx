@@ -5,7 +5,7 @@ import AppImages from '@Theme/AppImages';
 import CommonStyle from '@Theme/CommonStyle';
 import { getSize } from '@Utils/Helper';
 import { AppContext } from '@AppContext';
-import { fonts } from '@Utils/Constant';
+import { fonts, optionsData } from '@Utils/Constant';
 
 interface CustomProps {
   onClose: () => void;
@@ -15,34 +15,6 @@ interface CustomProps {
 const OptionsContainer = (props: CustomProps) => {
   const { appTheme } = useContext(AppContext);
   const { onClose, onPressItem } = props;
-
-  const optionsData = [
-    {
-      id: 1,
-      title: 'Book a meeting',
-      image: AppImages.calendar,
-    },
-    {
-      id: 2,
-      title: 'Book a hotdesk',
-      image: AppImages.workTable,
-    },
-    {
-      id: 3,
-      title: 'Check in',
-      image: AppImages.qr,
-    },
-    {
-      id: 4,
-      title: 'Order from pantry',
-      image: AppImages.coffee,
-    },
-    {
-      id: 5,
-      title: 'Raise a ticket',
-      image: AppImages.danger,
-    },
-  ];
 
   //   Methdos
   const renderItem = ({

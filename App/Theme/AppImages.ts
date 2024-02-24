@@ -16,6 +16,7 @@ const AppImages = {
   teams: 'teams',
   workTable: 'work_table',
   next: 'next',
+  floor: 'floor',
 };
 
 export default AppImages;
