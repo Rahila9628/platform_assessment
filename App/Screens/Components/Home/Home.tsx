@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import { CustomHeader, CustomTopicHeader, Layout } from '@CommonComponent';
+import {
+  CustomHeader,
+  CustomText,
+  CustomTopicHeader,
+  Layout,
+} from '@CommonComponent';
 import { AppContext } from '@AppContext';
 import {
   ArticleContainer,
@@ -21,6 +26,8 @@ import {
 import CommonStyle from '@Theme/CommonStyle';
 import AppImages from '@Theme/AppImages';
 import { width } from '@Utils/Constant';
+import { BlurView } from '@react-native-community/blur';
+import OptionsContainer from '@Components/Home/OptionsContainer';
 
 const Home = () => {
   const { appTheme } = useContext(AppContext);
@@ -49,6 +56,9 @@ const Home = () => {
     },
   ];
 
+  // States
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+
   // Methods
   const renderArticle = ({ item }: { item: any }) => {
     return <ArticleContainer item={item} />;
@@ -63,75 +73,100 @@ const Home = () => {
   };
 
   return (
-    <Layout scrollContainer={getPaddingVertical(20)}>
-      <CustomHeader
-        name="Jason"
-        notificationCount={'90'}
-        containerStyles={[getPaddingHorizontal(20), CommonStyle.marginVertical]}
-      />
-
-      <ScrollView
-        contentContainerStyle={[styles.container]}
-        keyboardShouldPersistTaps={'handled'}
-        showsVerticalScrollIndicator={false}
-        bounces={true}>
-        <TopContainer
-          title="Drink some water with"
-          keyword="lemon"
-          containerStyles={getMarginHorizontal(20)}
-        />
-        <UpcomingContainer containerStyles={getMarginHorizontal(20)} />
-
-        <CustomTopicHeader
-          title={'Articles'}
-          containerStyles={[CommonStyle.marginTop, getPaddingHorizontal(20)]}
+    <>
+      <Layout scrollContainer={getPaddingVertical(20)}>
+        <CustomHeader
+          name="Jason"
+          notificationCount={'90'}
+          containerStyles={[
+            getPaddingHorizontal(20),
+            CommonStyle.marginVertical,
+          ]}
         />
 
-        <View>
+        <ScrollView
+          contentContainerStyle={[styles.container]}
+          keyboardShouldPersistTaps={'handled'}
+          showsVerticalScrollIndicator={false}
+          bounces={true}>
+          <TopContainer
+            title="Drink some water with"
+            keyword="lemon"
+            containerStyles={getMarginHorizontal(20)}
+          />
+          <UpcomingContainer containerStyles={getMarginHorizontal(20)} />
+
+          <CustomTopicHeader
+            title={'Articles'}
+            containerStyles={[CommonStyle.marginTop, getPaddingHorizontal(20)]}
+          />
+
+          <View>
+            <FlatList
+              data={articles}
+              renderItem={renderArticle}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={[
+                CommonStyle.marginTop,
+                getPaddingHorizontal(20),
+                { height: 190 },
+              ]}
+              ItemSeparatorComponent={articleSeparator}
+            />
+          </View>
+
+          <CustomTopicHeader
+            title={'Microsoft teams'}
+            leftImage={AppImages.teams}
+            containerStyles={[getPaddingHorizontal(20)]}
+          />
+
           <FlatList
-            data={articles}
-            renderItem={renderArticle}
-            horizontal
-            showsHorizontalScrollIndicator={false}
+            data={notifications}
+            scrollEnabled={false}
+            renderItem={renderNotification}
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={[
               CommonStyle.marginTop,
-              getPaddingHorizontal(20),
-              { height: 190 },
+              getPaddingHorizontal(15),
+              getPaddingVertical(15),
+              getMarginHorizontal(20),
+              getBorderRadius(7),
+              { backgroundColor: appTheme.white },
             ]}
             ItemSeparatorComponent={articleSeparator}
           />
-        </View>
+        </ScrollView>
 
-        <CustomTopicHeader
-          title={'Microsoft teams'}
-          leftImage={AppImages.teams}
-          containerStyles={[getPaddingHorizontal(20)]}
+        <ButtonComponent
+          title={'I want to'}
+          onPress={() => setIsOptionsOpen(true)}
+          style={[styles.buttonStyle]}
+          isGradient={true}
         />
+      </Layout>
 
-        <FlatList
-          data={notifications}
-          scrollEnabled={false}
-          renderItem={renderNotification}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            CommonStyle.marginTop,
-            getPaddingHorizontal(15),
-            getPaddingVertical(15),
-            getMarginHorizontal(20),
-            getBorderRadius(7),
-            { backgroundColor: appTheme.white },
-          ]}
-          ItemSeparatorComponent={articleSeparator}
-        />
-      </ScrollView>
-
-      <ButtonComponent
-        title={'I want to'}
-        onPress={() => {}}
-        style={[styles.buttonStyle]}
-        isGradient={true}
-      />
-    </Layout>
+      {isOptionsOpen && (
+        <BlurView
+          style={CommonStyle.absoluteView}
+          blurType="light"
+          blurAmount={15}
+          reducedTransparencyFallbackColor="white">
+          <OptionsContainer
+            onClose={() => setIsOptionsOpen(false)}
+            onPressItem={(item: {
+              id: number;
+              title: string;
+              image: string;
+            }) => {
+              console.log({ item });
+              setIsOptionsOpen(false);
+            }}
+          />
+        </BlurView>
+      )}
+    </>
   );
 };
 

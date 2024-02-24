@@ -11,6 +11,7 @@
     "postinstall": "sh postinstall"
   },
   "dependencies": {
+    "@react-native-community/blur": "^4.4.0",
     "@react-native-community/netinfo": "^11.3.0",
     "@react-native-masked-view/masked-view": "^0.3.1",
     "@react-navigation/native": "^6.1.10",
