@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import CommonStyle from '@Theme/CommonStyle';
 import { CustomText } from '@CommonComponent';
 import { AppContext } from '@AppContext';
+import { fonts } from '@Utils/Constant';
 
 const styles = StyleSheet.create({
   gradientBtn: {
@@ -72,6 +73,8 @@ const ButtonComponent = (props: GradientButtonProps) => {
           (colors && colors) ||
           appTheme.gradient
         }
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
         style={[
           alignSelf,
           gradientBtn,
@@ -84,7 +87,10 @@ const ButtonComponent = (props: GradientButtonProps) => {
           style,
         ]}>
         {((!isProcessing || textOnly) && (
-          <CustomText large style={[{ color: textColor ?? appTheme.tint }]}>
+          <CustomText
+            large
+            font={fonts.SemiBold}
+            style={[{ color: textColor ?? appTheme.tint }]}>
             {title}
           </CustomText>
         )) || <ActivityIndicator color={appTheme.tint} />}

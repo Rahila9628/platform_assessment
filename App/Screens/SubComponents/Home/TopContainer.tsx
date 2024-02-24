@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { AssetImage, CustomText } from '@CommonComponent';
 import { fonts } from '@Utils/Constant';
 import AppImages from '@Theme/AppImages';
@@ -7,24 +7,36 @@ import { getSize } from '@Utils/Helper';
 import CommonStyle from '@Theme/CommonStyle';
 import { AppContext } from '@AppContext';
 
-const TopContainer = () => {
+interface CustomProps {
+  title: string;
+  keyword: string;
+  containerStyles?: StyleProp<ViewStyle>;
+}
+
+const TopContainer = (props: CustomProps) => {
   const { appTheme } = useContext(AppContext);
+  const { title, keyword, containerStyles } = props;
 
   return (
-    <View style={[styles.topContainer, { backgroundColor: appTheme.white }]}>
+    <View
+      style={[
+        styles.topContainer,
+        { backgroundColor: appTheme.white },
+        containerStyles,
+      ]}>
       <View style={[CommonStyle.flex1, CommonStyle.justifyBetween]}>
         <CustomText
           lineHeight={27}
           children={
             <>
               <CustomText xlarge font={fonts.SemiBold}>
-                {'Drink some water with '}
+                {`${title} `}
               </CustomText>
               <CustomText
                 xlarge
                 font={fonts.SemiBold}
                 color={appTheme.themeColor}>
-                {'lemon'}
+                {`${keyword}`}
               </CustomText>
             </>
           }
@@ -35,7 +47,7 @@ const TopContainer = () => {
             {'Order now'}
           </CustomText>
           <View style={getSize(5)} />
-          <AssetImage source={AppImages.next} imageStyle={[getSize(30)]} />
+          <AssetImage source={AppImages.next} imageStyle={[getSize(25)]} />
         </View>
       </View>
 
@@ -51,7 +63,6 @@ const TopContainer = () => {
               <CustomText small font={fonts.SemiBold}>
                 {'2'}
               </CustomText>
-
               <View>
                 <CustomText xlarge font={fonts.SemiBold}>
                   {'O'}
@@ -74,7 +85,7 @@ export { TopContainer };
 
 const styles = StyleSheet.create({
   topContainer: {
-    marginTop: 30,
+    marginTop: 20,
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 10,

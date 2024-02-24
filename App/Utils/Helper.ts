@@ -140,3 +140,18 @@ export const onLogout = (navigation: any) => {
   goToNextScreen(navigation, Route.HomeScreen);
   removeStoreItem(Authentication.TOKEN);
 };
+
+export const getDayGreetings = () => {
+  const currentHour = new Date().getHours();
+  let dayGreetings = '';
+
+  if (currentHour < 12) {
+    dayGreetings = 'Good morning!';
+  } else if (currentHour < 18) {
+    dayGreetings = 'Good afternoon!';
+  } else {
+    dayGreetings = 'Good evening!';
+  }
+
+  return dayGreetings
+}

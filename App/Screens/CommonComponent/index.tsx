@@ -6,3 +6,5 @@ export * from '@CommonComponent/Loading';
 export * from '@CommonComponent/NavigationBar';
 export * from '@CommonComponent/IsAlertModal';
 export * from '@CommonComponent/AssetImage';
+export * from '@CommonComponent/NetworkImage';
+export * from '@CommonComponent/CustomTopicHeader';

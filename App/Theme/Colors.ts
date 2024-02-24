@@ -1,5 +1,5 @@
 const ThemeColor = {
-  primary: '#007f5c',
+  primary: '#4FB5B5',
   white: '#FFF',
   lighter: '#F3F3F3',
   light: '#DAE1E7',
@@ -17,7 +17,7 @@ const ThemeColor = {
   lightGray4: '#d1d1d6',
   lightGray5: '#e5e5ea',
   lightGray6: '#f2f2f7',
-  gradient: ['#1FA2FF', '#12D8FA'],
+  gradient: ['#4FB5B5', '#1fa1a1'],
   overlay: 'rgba(0,0,0,0.7)',
 
   offWhite: '#F4F4F1',

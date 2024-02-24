@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { AssetImage, CustomText } from '@CommonComponent';
 import AppImages from '@Theme/AppImages';
-import { getMarginHorizontal, getSize } from '@Utils/Helper';
+import { getDayGreetings, getMarginHorizontal, getSize } from '@Utils/Helper';
 import { AppContext } from '@AppContext';
 import CommonStyle from '@Theme/CommonStyle';
 import { fonts } from '@Utils/Constant';
@@ -11,14 +11,15 @@ interface CustomProps {
   greetings?: string;
   name: string;
   notificationCount: string;
+  containerStyles?: StyleProp<ViewStyle>;
 }
 
 const CustomHeader = (props: CustomProps) => {
   const { appTheme } = useContext(AppContext);
-  const { greetings = 'Good evening', name, notificationCount } = props;
+  const { greetings = '', name, notificationCount, containerStyles } = props;
 
   return (
-    <View style={[CommonStyle.row, CommonStyle.alignCenter]}>
+    <View style={[CommonStyle.row, CommonStyle.alignCenter, containerStyles]}>
       <View
         style={[
           styles.menuImgContainer,
@@ -37,7 +38,7 @@ const CustomHeader = (props: CustomProps) => {
           CommonStyle.justifyBetween,
         ]}>
         <CustomText size={22} font={fonts.SemiBold}>
-          {greetings}
+          {greetings || getDayGreetings()}
         </CustomText>
 
         <View style={getSize(3)} />
