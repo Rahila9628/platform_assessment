@@ -17,6 +17,7 @@ const AppImages = {
   workTable: 'work_table',
   next: 'next',
   floor: 'floor',
+  magic: 'magic',
 };
 
 export default AppImages;

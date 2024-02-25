@@ -1,65 +1,53 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Text, ImageBackground } from 'react-native';
-import Canvas from 'react-native-canvas';
-import { Svg, Circle, Text as SvgText } from 'react-native-svg';
-import { height, pinsData, width } from '@Utils/Constant';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, Image } from 'react-native';
+import Canvas, { Image as CanvasImage } from 'react-native-canvas';
+import { pinsData, width } from '@Utils/Constant';
 import AppImages from '@Theme/AppImages';
 
-const MeetRooms = () => {
-  const canvasRef = useRef(null);
+const Booking = () => {
+  // States
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   const roomInfo: any[] = [];
 
-  const drawMeetRooms = (canvas: any) => {
-    const ctx = canvas.getContext('2d');
-
+  const handleCanvas = (canvas: any) => {
+    if (!(canvas instanceof Canvas)) {
+      return;
+    }
     pinsData.forEach((room, index) => {
-      const [x, y] = room.coordinates.split(',').map(Number);
+      const image = new CanvasImage(canvas);
+      canvas.width = width;
 
-      ctx.beginPath();
-      ctx.arc(x, y, 20, 0, 2 * Math.PI);
-      ctx.fillStyle = room.status === 'active' ? 'green' : 'red';
-      ctx.fill();
+      const context = canvas.getContext('2d');
 
-      roomInfo[index] = {
-        name: room.name,
-        coordinates: [x, y],
-      };
+      image.src = 'https://static.thenounproject.com/png/1426584-200.png';
+
+      image.addEventListener('load', () => {
+        const [x, y] = room.coordinates.split(',').map(Number);
+        console.log({ x, y });
+        context.drawImage(image, x * 0.06, y * 0.06, 25, 25);
+        roomInfo[index] = {
+          name: room.name,
+          coordinates: [x, y],
+        };
+      });
+
+      image.addEventListener('click', () => {
+        //select room
+      });
     });
   };
 
-  const handlePress = (event: any) => {
-    const { locationX, locationY } = event.nativeEvent;
-    console.log({ event });
-
-    for (let i = 0; i < roomInfo.length; i++) {
-      const [x, y] = roomInfo[i].coordinates;
-      const distance = Math.sqrt(
-        Math.pow(locationX - x, 2) + Math.pow(locationY - y, 2),
-      );
-
-      if (distance <= 20) {
-        setSelectedRoom(roomInfo[i].name);
-        break;
-      }
-    }
-  };
-
   return (
-    <ImageBackground
-      source={{ uri: AppImages.floor }}
-      imageStyle={{ height: height, width: width, flex: 1 }}>
-      <View style={styles.container}>
-        <Canvas
-          ref={canvasRef}
-          style={styles.canvas}
-          onDraw={drawMeetRooms}
-          onPress={handlePress}
-        />
-        {selectedRoom && <Text style={styles.roomName}>{selectedRoom}</Text>}
-      </View>
-    </ImageBackground>
+    <View style={styles.container}>
+      <Image
+        source={{ uri: AppImages.floor }}
+        style={{ height: width, width: width }}
+        resizeMode="stretch"
+      />
+      <Canvas ref={handleCanvas} style={styles.canvas} />
+      {selectedRoom && <Text style={styles.roomName}>{selectedRoom}</Text>}
+    </View>
   );
 };
 
@@ -71,8 +59,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   canvas: {
-    borderWidth: 1,
     borderColor: 'black',
+    position: 'absolute',
+    width: width,
+    zIndex: 500,
   },
   roomName: {
     fontSize: 18,
@@ -82,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MeetRooms;
+export default Booking;

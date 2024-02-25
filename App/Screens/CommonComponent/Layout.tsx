@@ -8,23 +8,16 @@ import {
   RefreshControl,
   StyleProp,
   ViewStyle,
-  TextStyle,
   ImageStyle,
   StatusBarStyle,
   ScrollView,
 } from 'react-native';
 import { isIOS } from '@Utils/Constant';
 import { AppContext } from '@AppContext';
-import { NavigationBar } from '@CommonComponent';
 import CommonStyle from '@Theme/CommonStyle';
 
 interface LayoutProps {
   children: React.ReactNode;
-  title?: string;
-  titleCenter?: boolean;
-  titleTextStyle?: StyleProp<TextStyle>;
-  titleNumberOfLines?: number;
-  titleMaxLength?: number;
   padding?: number;
   submit?: {
     onSubmit?: () => void;
@@ -43,33 +36,21 @@ interface LayoutProps {
     refreshing: boolean;
     onRefresh: () => void;
   };
-  navBarContainerStyle?: StyleProp<ViewStyle>;
   removeContainerView?: boolean;
   statusbarBgColor?: string;
   barStyle?: StatusBarStyle | null | undefined;
   containerStyles?: StyleProp<ViewStyle>;
   scrollContainer?: StyleProp<ViewStyle>;
-  goBack?: boolean;
-  logoHeaderStyle?: StyleProp<ViewStyle>;
-  onBack?: Function;
 }
 
 const Layout = (props: LayoutProps) => {
   const { appTheme } = useContext(AppContext);
   const {
     children,
-    title,
-    titleCenter,
-    titleTextStyle,
-    titleNumberOfLines = 1,
-    titleMaxLength,
     padding = 0,
     scrollable = false,
     backgroundColor,
-    showBack = false,
     refreshControl,
-    navBarContainerStyle,
-    submit,
     removeContainerView = false,
     statusbarBgColor = appTheme.background,
     barStyle = 'dark-content',
@@ -89,21 +70,6 @@ const Layout = (props: LayoutProps) => {
         behavior="padding"
         style={styles.keyboardView}
         keyboardVerticalOffset={isIOS ? 0 : -500}>
-        {(title && (
-          <NavigationBar
-            title={title}
-            titleCenter={titleCenter}
-            titleTextStyle={titleTextStyle}
-            titleNumberOfLines={titleNumberOfLines}
-            titleMaxLength={titleMaxLength}
-            backgroundColor={backgroundColor}
-            showBack={showBack}
-            exStyle={navBarContainerStyle}
-            paddingHorizontal={padding}
-            submit={submit}
-          />
-        )) || <></>}
-
         {(scrollable && (
           <ScrollView
             showsVerticalScrollIndicator={false}

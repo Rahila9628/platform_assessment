@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { AssetImage, CustomText, NetworkImage } from '@CommonComponent';
-import { getPaddingHorizontal, getSize, getWidth } from '@Utils/Helper';
+import { getSize, getWidth } from '@Utils/Helper';
 import { AppContext } from '@AppContext';
 import CommonStyle from '@Theme/CommonStyle';
 import AppImages from '@Theme/AppImages';
@@ -30,7 +30,7 @@ const ArticleContainer = (props: CustomProps) => {
           CommonStyle.row,
           CommonStyle.justifyBetween,
           styles.dataContainer,
-          { backgroundColor: appTheme.white },
+          { backgroundColor: 'transparent' },
         ]}>
         <View style={CommonStyle.flex1}>
           <CustomText size={15} font={fonts.Medium}>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2, // negative height
+      height: 2,
     },
     shadowOpacity: 0.35,
     shadowRadius: 3.84,
@@ -73,13 +73,5 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 10,
     paddingVertical: 7,
-    shadowColor: '#fefefe',
-    shadowOffset: {
-      width: 0,
-      height: -15, // negative height
-    },
-    shadowOpacity: 0.85,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
 });

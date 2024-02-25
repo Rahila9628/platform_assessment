@@ -3,13 +3,7 @@ import React, { useContext, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BlurView } from '@react-native-community/blur';
-import {
-  CustomHeader,
-  CustomText,
-  CustomTopicHeader,
-  Layout,
-  NetworkImage,
-} from '@CommonComponent';
+import { CustomHeader, CustomTopicHeader, Layout } from '@CommonComponent';
 import { AppContext } from '@AppContext';
 import {
   ArticleContainer,
@@ -62,18 +56,6 @@ const Home = () => {
   const renderNotification = ({ item }: { item: any }) => {
     return <NotificationContainer item={item} />;
   };
-
-  // return (
-  //   <View
-  //     style={[
-  //       CommonStyle.flex1,
-  //       CommonStyle.center,
-  //       { backgroundColor: appTheme.white },
-  //     ]}>
-  //     <NetworkImage source={'https://i.postimg.cc/25LGVS47/reminder-2.png'} />
-  //     <CustomText color="black">Assessment</CustomText>
-  //   </View>
-  // );
 
   return (
     <>
@@ -144,9 +126,12 @@ const Home = () => {
 
         <ButtonComponent
           title={'I want to'}
-          onPress={() => setIsOptionsOpen(true)}
-          style={[styles.buttonStyle]}
+          onPress={() => {
+            setIsOptionsOpen(true);
+          }}
+          style={[getWidth(width - 40)]}
           isGradient={true}
+          outerStyle={styles.btnOuter}
         />
       </Layout>
 
@@ -171,10 +156,12 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingBottom: 20,
+    marginBottom: 20,
+    paddingBottom: 80,
   },
-  buttonStyle: {
-    ...getWidth(width - 40),
+  btnOuter: {
+    position: 'absolute',
+    bottom: 0,
     ...getMarginHorizontal(20),
     marginTop: 5,
   },

@@ -5,12 +5,15 @@ import {
   ActivityIndicator,
   StyleProp,
   ViewStyle,
+  View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import CommonStyle from '@Theme/CommonStyle';
-import { CustomText } from '@CommonComponent';
+import { AssetImage, CustomText } from '@CommonComponent';
 import { AppContext } from '@AppContext';
 import { fonts } from '@Utils/Constant';
+import AppImages from '@Theme/AppImages';
+import { getSize } from '@Utils/Helper';
 
 const styles = StyleSheet.create({
   gradientBtn: {
@@ -87,12 +90,20 @@ const ButtonComponent = (props: GradientButtonProps) => {
           style,
         ]}>
         {((!isProcessing || textOnly) && (
-          <CustomText
-            large
-            font={fonts.SemiBold}
-            style={[{ color: textColor ?? appTheme.tint }]}>
-            {title}
-          </CustomText>
+          <View style={[CommonStyle.row, CommonStyle.alignCenter]}>
+            <CustomText
+              xlarge
+              font={fonts.SemiBold}
+              style={[{ color: textColor ?? appTheme.tint }]}>
+              {title}
+            </CustomText>
+
+            <View style={getSize(15)} />
+            <AssetImage
+              source={AppImages.magic}
+              imageStyle={[getSize(25), { tintColor: appTheme.white }]}
+            />
+          </View>
         )) || <ActivityIndicator color={appTheme.tint} />}
       </LinearGradient>
     </Pressable>
